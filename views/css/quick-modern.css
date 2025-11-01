@@ -1,0 +1,24 @@
+/* Purple to Blue Color Replacements */
+.bg-purple { @apply bg-blue-500; }
+.text-purple { @apply text-blue-600; }
+.border-purple { @apply border-blue-500; }
+
+/* Modern Card Styles */
+.card { 
+  @apply shadow-lg border-0 rounded-xl hover:shadow-xl transition-all duration-300; 
+}
+
+/* Modern Buttons */
+.btn-primary { 
+  @apply bg-blue-500 hover:bg-blue-600 shadow-lg hover:shadow-xl transition-all duration-200; 
+}
+
+/* Modern Forms */
+.form-control { 
+  @apply rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200; 
+}
+
+/* Glass Effect */
+.glass { 
+  @apply bg-white/90 backdrop-blur-md border border-white/20; 
+}

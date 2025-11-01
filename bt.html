@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Bluetooth Example</title>
+</head>
+<body>
+    <button id="connectButton">Connect to Bluetooth Device</button>
+    <input type="text" id="inputField" placeholder="Enter data to send">
+    <button id="sendButton">Send Data</button>
+    <p id="connectionStatus"></p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const connectButton = document.getElementById('connectButton');
+            const sendButton = document.getElementById('sendButton');
+            const inputField = document.getElementById('inputField');
+            const connectionStatus = document.getElementById('connectionStatus');
+            let bluetoothDevice;
+            let characteristic;
+            var puuid = 'e7810a71-73ae-499d-8c15-faa9aef0c3f2'
+            var cuuid = 'bef8d6c9-9c21-4c9e-b632-bd58c1009f9f'
+
+            async function connect() {
+                try {
+                    // Request Bluetooth device with acceptAllDevices
+                    bluetoothDevice = await navigator.bluetooth.requestDevice({
+                        // acceptAllDevices: true
+                        filters: [{ services: [puuid] }]
+                    });
+
+                    // Connect to the GATT server
+                    const server = await bluetoothDevice.gatt.connect();
+
+                    // Check if the GATT server is connected
+                    if (!server.connected) {
+                        throw new Error('Failed to connect to GATT server');
+                    }
+
+                    // Get the primary service
+                    const service = await server.getPrimaryService(puuid); // Use the UUID of one of the services
+
+                    // Get the characteristic to write data
+                    characteristic = await service.getCharacteristic(cuuid); // Use the characteristic UUID here
+
+                    connectionStatus.textContent = 'Connected to: ' + bluetoothDevice.name;
+                    console.log('Connected to Bluetooth device:', bluetoothDevice.name);
+                } catch (error) {
+                    console.error('Error connecting to Bluetooth device:', error);
+                }
+            }
+
+            async function send() {
+                try {
+                    if (!bluetoothDevice || !characteristic) {
+                        console.error('Bluetooth device or characteristic not initialized.');
+                        return;
+                    }
+
+                    const data = inputField.value;
+                    const dataArray = new TextEncoder().encode(data);
+
+                    // Write data to the characteristic
+                    await characteristic.writeValue(dataArray);
+
+                    console.log('Data sent:', data);
+                } catch (error) {
+                    console.error('Error sending data:', error);
+                }
+            }
+
+            connectButton.addEventListener('click', connect);
+            sendButton.addEventListener('click', send);
+        });
+    </script>
+</body>
+</html>

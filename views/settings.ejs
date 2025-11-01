@@ -1,0 +1,474 @@
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta19
+* @link https://tabler.io
+* Copyright 2018-2023 The Tabler Authors
+* Copyright 2018-2023 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Settings - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css?1684106062" rel="stylesheet"/>
+    <link href="css/tabler-flags.min.css?1684106062" rel="stylesheet"/>
+    <link href="css/tabler-payments.min.css?1684106062" rel="stylesheet"/>
+    <link href="css/tabler-vendors.min.css?1684106062" rel="stylesheet"/>
+    <link href="css/demo.min.css?1684106062" rel="stylesheet"/>
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+        --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
+  <body >
+    <script src="js/demo-theme.min.js?1684106062"></script>
+    <div class="page">
+      <!-- Navbar -->
+
+      <%- include('header') %>
+      
+
+
+
+
+
+
+
+
+
+      <div class="page-wrapper">
+        <!-- Page header -->
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <h2 class="page-title">
+                  Account Settings
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-3 d-none d-md-block border-end">
+                  <div class="card-body">
+                    <h4 class="subheader">Business settings</h4>
+                    <div class="list-group list-group-transparent">
+                      <a href="/settings" class="list-group-item list-group-item-action d-flex align-items-center active">My Account</a>
+                      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">My Notifications</a>
+                      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">Connected Apps</a>
+                      <a href="./settings-plan.html" class="list-group-item list-group-item-action d-flex align-items-center">Plans</a>
+                      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">Billing & Invoices</a>
+                    </div>
+                    <h4 class="subheader mt-4">Experience</h4>
+                    <div class="list-group list-group-transparent">
+                      <a href="#" class="list-group-item list-group-item-action">Give Feedback</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col d-flex flex-column">
+                  <div class="card-body">
+                    <h2 class="mb-4">My Account</h2>
+                    <h3 class="card-title">Profile Details</h3>
+                    <div class="row align-items-center">
+                    
+                      <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                      </div>
+                      <div class="col-auto">
+
+                      
+                          <!-- <label for="image" class="btn">Change avatar</label> -->
+                          <input type="file" name="image" id="image" accept="image/*">
+                          <button id="uploadBtn">Upload</button>
+                   
+                      
+                      <!-- <a href="#" >
+                          
+                        </a> -->
+                      
+                      </div>
+                      <div class="col-auto"><a href="#" class="btn btn-ghost-danger">
+                          Delete avatar
+                        </a></div>
+                    </div>
+
+
+                    <h3 class="card-title mt-4">Business Profile</h3>
+
+
+
+                    <div class="row g-3">
+                      <div class="col-md">
+                        <div class="form-label">Account ID</div>
+                        <input type="text" class="form-control" value="<%= data._id %>" disabled>  
+                      </div>
+                      <div class="col-md">
+                        <div class="form-label">First Name</div>
+                        <input type="text" class="form-control" value="<%= data.firstname %>" disabled>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-label">Last Name</div>
+                        <input type="text" class="form-control"  value="<%= data.lastname %>" disabled> 
+                      </div>
+                    </div>
+
+<hr />
+                                        
+                    <div class="row g-3">
+
+
+
+                      <div class="col-md">
+                        <div class="form-label">Organization role</div>
+                        <input type="text" class="form-control" style="text-transform: uppercase;" value="<%= data.role %>" disabled>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-label">Phone number</div>
+                        <input type="text" class="form-control" value="<%= data.phonenumber %>" disabled>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-label">Gender</div>
+                        <input type="text" class="form-control" value="<%= data.gender %>" disabled>
+                      </div>
+
+
+                      <h3 class="card-title mt-4">Printer Configuration</h3>
+                      
+                      <div class="col-md">
+                        <div class="form-label">Printer serviceUUID</div>
+                        <input type="text" id="serviceUUID" class="form-control" value="<%= serviceUUID %>">
+                      </div>
+                      <div class="col-md">
+                        <div class="form-label">Printer characteristicUUID</div>
+                        <input type="text" id="characteristicUUID" class="form-control" value="<%= characteristicUUID %>">
+                      </div>
+
+
+
+                      <div class="col-md">
+                        <div style="opacity: 0;" class="form-label">Location</div>
+                        <input type="button" id="Updateprinterid" class="form-control btn btn-primary"
+             value="Update Printer">
+                      </div>
+
+                      <div class="col-md">
+                        <div class="form-label">Printer Type</div>
+                        <div>
+                          <label><input type="radio" name="printerType" value="wireless" id="printerTypeWireless"> Wireless (Bluetooth)</label>
+                          <label style="margin-left:20px;"><input type="radio" name="printerType" value="wired" id="printerTypeWired"> Wired</label>
+                        </div>
+                      </div>
+                      <div class="col-md" id="wiredPrinterNameDiv" style="display:none;">
+                        <div class="form-label">Wired Printer Name</div>
+                        <div class="input-group">
+                          <select id="wiredPrinterSelect" class="form-select">
+                            <option value="">Loading printers...</option>
+                          </select>
+                          <button class="btn btn-outline-secondary" type="button" id="refreshPrintersBtn">Refresh</button>
+                        </div>
+                        <small class="form-hint">Select your thermal receipt printer from the list above</small>
+                        <!-- New: Connect and status for wired (Web Serial) -->
+                        <div class="mt-2 d-flex align-items-center">
+                          <button class="btn btn-outline-primary me-2" type="button" id="wiredConnectBtn">Connect USB Printer</button>
+                          <span id="wiredConnectStatus" class="small text-muted">Status: Not connected</span>
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <h3 class="card-title mt-4">Email</h3>
+                    <p class="card-subtitle">This contact will be shown to others publicly, so choose it carefully.</p>
+                    <div>
+                      <div class="row g-2">
+                        <div class="col-auto">
+                          <input type="text" class="form-control w-auto" value="<%= data.email %>" disabled>
+                        </div>
+                        <!-- <div class="col-auto"><a href="#" class="btn">
+                            Change
+                          </a></div> -->
+                      </div>
+                    </div>
+                    <h3 class="card-title mt-4">Password</h3>
+                    <p class="card-subtitle">You can set a permanent password if you don't want to use temporary login codes.</p>
+                    <div>
+                      <!-- <a href="#" class="btn"> -->
+                 
+                      <div class="col-auto">
+                        <input type="text" class="form-control w-auto" value="" placeholder="Current password">
+                      </div>
+                      
+                   
+                      <div class="col-auto">
+                        <input type="text" class="form-control w-auto" value="" placeholder="New password">
+                      </div>
+
+
+                      <div class="col-auto">
+                        <input type="text" class="form-control w-auto" value="" placeholder="Retype new password">
+                      </div>
+                    </div>
+                    <h3 class="card-title mt-4">Public profile</h3>
+                    <p class="card-subtitle">Making your profile public means that anyone on the Dashkit network will be able to find
+                      you.</p>
+                    <div>
+                      <label class="form-check form-switch form-switch-lg">
+                        <input class="form-check-input" type="checkbox" >
+                        <span class="form-check-label form-check-label-on">You're currently visible</span>
+                        <span class="form-check-label form-check-label-off">You're
+                          currently invisible</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-transparent mt-auto">
+                    <div class="btn-list justify-content-end">
+                      <a href="/logout" class="btn">Log out</a>
+                      <a href="#" class="btn btn-primary">
+                        Submit
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+   <%- include('footer') %>
+      </div>
+    </div>
+
+
+<script>
+    // Printer type selection logic
+    function loadPrinterSettings() {
+      const type = localStorage.getItem('printerType') || 'wireless';
+      const name = localStorage.getItem('wiredPrinterName') || '';
+      document.getElementById('printerTypeWireless').checked = (type === 'wireless');
+      document.getElementById('printerTypeWired').checked = (type === 'wired');
+      document.getElementById('wiredPrinterSelect').value = name;
+      document.getElementById('wiredPrinterNameDiv').style.display = (type === 'wired') ? '' : 'none';
+    }
+    
+    function savePrinterSettings() {
+      const type = document.getElementById('printerTypeWireless').checked ? 'wireless' : 'wired';
+      localStorage.setItem('printerType', type);
+      if (type === 'wired') {
+        localStorage.setItem('wiredPrinterName', document.getElementById('wiredPrinterSelect').value);
+      }
+      // Trigger header update
+      window.dispatchEvent(new Event('storage'));
+    }
+    
+    // Load available printers
+    // Load available printers
+    async function loadAvailablePrinters() {
+      try {
+        console.log('Fetching printers from /get-printers...');
+        const response = await fetch('/get-printers');
+        console.log('Response status:', response.status);
+        const data = await response.json();
+        console.log('Full response data:', data);
+        console.log('Printers array:', data.printers);
+        console.log('Printers length:', data.printers ? data.printers.length : 'undefined');
+        
+        const select = document.getElementById('wiredPrinterSelect');
+        
+        // Clear existing options
+        select.innerHTML = '<option value="">Select a printer...</option>';
+        
+        // Add printers to dropdown
+        if (data.printers && data.printers.length > 0) {
+          console.log('Adding printers to dropdown...');
+          data.printers.forEach((printer, index) => {
+            console.log(`Printer ${index}:`, printer);
+            const option = document.createElement('option');
+            option.value = printer.name || printer.deviceId;
+            option.textContent = `${printer.name || printer.deviceId}${printer.paperSizes ? ` (${printer.paperSizes[0]})` : ''}`;
+            select.appendChild(option);
+          });
+        } else {
+          console.log('No printers found or empty array');
+          select.innerHTML = '<option value="">No printers found</option>';
+        }
+        
+        // Restore saved value
+        const savedName = localStorage.getItem('wiredPrinterName') || '';
+        if (savedName) {
+          select.value = savedName;
+        }
+      } catch (error) {
+        console.error('Error loading printers:', error);
+        document.getElementById('wiredPrinterSelect').innerHTML = '<option value="">Error loading printers</option>';
+      }
+    }
+
+    // New: Web Serial connect helpers for Wired mode
+    // Show all serial-capable devices in chooser (broadest compatibility)
+    const WEB_SERIAL_VENDOR_FILTERS = [];
+
+    function setWiredStatus(text, ok) {
+      const el = document.getElementById('wiredConnectStatus');
+      if (!el) return;
+      el.textContent = `Status: ${text}`;
+      el.style.color = ok ? 'green' : '';
+    }
+
+    async function refreshWiredStatusFromPermissions() {
+      try {
+        if (!('serial' in navigator)) {
+          setWiredStatus('Web Serial not supported (use Chrome over HTTPS)', false);
+          const btn = document.getElementById('wiredConnectBtn');
+          if (btn) btn.disabled = true;
+          return;
+        }
+        const ports = await navigator.serial.getPorts();
+        if (ports && ports.length > 0) {
+          const info = ports[0].getInfo ? ports[0].getInfo() : {};
+          const vid = info.usbVendorId ? info.usbVendorId.toString(16).padStart(4,'0') : '----';
+          const pid = info.usbProductId ? info.usbProductId.toString(16).padStart(4,'0') : '----';
+          localStorage.setItem('wiredConnected', 'true');
+          localStorage.setItem('wiredUsbInfo', JSON.stringify(info));
+          setWiredStatus(`Connected (VID: ${vid}, PID: ${pid})`, true);
+        } else {
+          localStorage.removeItem('wiredConnected');
+          localStorage.removeItem('wiredUsbInfo');
+          setWiredStatus('Not connected', false);
+        }
+      } catch (e) {
+        console.warn('refreshWiredStatusFromPermissions error', e);
+        setWiredStatus('Unknown', false);
+      }
+    }
+    
+    async function connectWiredPrinter() {
+      try {
+        if (!('serial' in navigator)) {
+          alert('Web Serial API not supported. Use Chrome over HTTPS.');
+          return;
+        }
+        // Request without filters so Chrome shows all serial-capable devices
+        const requestOpts = {};
+        if (Array.isArray(WEB_SERIAL_VENDOR_FILTERS) && WEB_SERIAL_VENDOR_FILTERS.length) {
+          requestOpts.filters = WEB_SERIAL_VENDOR_FILTERS;
+        }
+        const port = await navigator.serial.requestPort(requestOpts);
+        await port.open({ baudRate: 9600, dataBits: 8, stopBits: 1, parity: 'none', flowControl: 'none' });
+        // Immediately close; we just need permission and availability
+        await port.close();
+        await refreshWiredStatusFromPermissions();
+      } catch (e) {
+        // Common Chrome messages: "No compatible devices found" or user canceled
+        if (e && (e.name === 'NotFoundError' || /No compatible devices/i.test(e.message))) {
+          setWiredStatus('No compatible devices found. Ensure USB-Serial driver (e.g., CH340) is installed and try another cable/port.', false);
+        } else {
+          console.error('connectWiredPrinter error', e);
+          setWiredStatus(`Failed: ${e && e.message ? e.message : 'Unknown error'}`, false);
+        }
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadPrinterSettings();
+      loadAvailablePrinters(); // Load printers on page load
+      
+      document.getElementById('printerTypeWireless').addEventListener('change', function() {
+        document.getElementById('wiredPrinterNameDiv').style.display = 'none';
+        savePrinterSettings();
+      });
+      
+      document.getElementById('printerTypeWired').addEventListener('change', function() {
+        document.getElementById('wiredPrinterNameDiv').style.display = '';
+        savePrinterSettings();
+        loadAvailablePrinters(); // Reload printers when switching to wired mode
+        // Initialize Web Serial status when switching to wired
+        setTimeout(refreshWiredStatusFromPermissions, 50);
+      });
+      
+      document.getElementById('wiredPrinterSelect').addEventListener('change', savePrinterSettings);
+      
+      document.getElementById('refreshPrintersBtn').addEventListener('click', loadAvailablePrinters);
+
+      // Wire up Connect button and initial status
+      const connectBtn = document.getElementById('wiredConnectBtn');
+      if (connectBtn) {
+        connectBtn.addEventListener('click', connectWiredPrinter);
+      }
+      if ((localStorage.getItem('printerType') || 'wireless') === 'wired') {
+        refreshWiredStatusFromPermissions();
+      }
+    });
+    
+    $(document).ready(function() {
+      $('#uploadBtn').click(function(event) {
+          var fileInput = $('#image')[0];
+          var file = fileInput.files[0];
+          
+          if (!file) {
+              alert('Please select an image to upload.');
+              return;
+          }
+
+          var reader = new FileReader();
+          reader.onload = function() {
+              var imageData = reader.result;
+              uploadImage(imageData);
+          }
+          reader.readAsDataURL(file);
+      });
+
+      function uploadImage(imageData) {
+          $.ajax({
+              url: '/upload',
+              type: 'POST',
+              data: { image: imageData },
+              success: function(response) {
+                  console.log(response);
+                  alert('Image uploaded successfully!');
+              },
+              error: function(xhr, status, error) {
+                  console.error(xhr.responseText);
+                  alert('Error uploading image. Please try again.');
+              }
+          });
+      }
+    });
+</script>
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+    <script src="js/tabler.min.js?1684106062" defer></script>
+    <script src="js/demo.min.js?1684106062" defer></script>
+    <script src="js/updateprinter.js" defer></script>
+
+  </body>
+</html>

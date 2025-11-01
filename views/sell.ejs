@@ -1,0 +1,841 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title> welcome. <%= data.fname %></title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css" rel="stylesheet"/>
+    <link href="css/tabler-flags.min.css" rel="stylesheet"/>
+    <link href="css/tabler-payments.min.css" rel="stylesheet"/>
+    <link href="css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link href="css/demo.min.css" rel="stylesheet"/>
+
+
+  
+
+
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+        --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+
+      body {
+        -webkit-print-color-adjust: exact;
+        margin: 0;
+        font-feature-settings: "cv03", "cv04", "cv11";
+    }
+   
+      @media print {
+    /* Set the number of copies to 1 */
+    @page {
+        size: auto;
+        margin: 0;
+    }
+
+
+}
+
+
+      .calboxshadow{
+
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      }
+
+   
+
+
+     .select2-results__options{
+
+      /* background-color: #206bc4; */
+      overflow: scroll;
+     }
+
+     .select2-container{
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      padding: 5px;
+      position: relative;
+      display: block;
+      
+     }
+
+
+     .select2-dropdown {
+      display: block;
+      position: relative;
+       font-size: larger;
+     background-color: #206bc4;
+     border-bottom-left-radius: 8px;
+     border-bottom-right-radius: 8px;
+     
+     /* BCE0F2 */
+     }
+
+
+     .select2-search__field{
+      width: 100%;
+     }
+
+
+
+
+
+
+    </style>
+  </head>
+  <body >
+    <script src="js/demo-theme.min.js"></script>
+
+
+    <script>
+      if('<%= characteristicUUID %>' != ""){
+        var characteristicUUID = '<%= characteristicUUID %>';
+        var serviceUUID = '<%= serviceUUID %>'
+      } else {
+      
+      }
+      
+    </script>
+
+
+    <div class="page">
+      <!-- Navbar -->
+
+
+
+      <%- include('header') %>
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="page-wrapper">
+
+
+
+
+
+        <div class="calboxshadow row g-0 text-center" style="  margin: 10px 10px 30px 10px; border-radius: 8px;   ">
+
+         
+          <!-- <img style="border-radius: 4px; " src="images/d496904ef6b1264a0a7f769d33acad73-4_tablet_1067x470.webp">
+           -->
+
+         
+           
+           <!-- <input type="text" id="inputField" placeholder="Enter data to send"> -->
+           <!-- <button id="sendButton">Send Data</button> -->
+           <p id="connectionStatus"></p>
+
+           <header style="font-size: larger; "> Kilo </header>
+
+         
+            <div class="col-sm-12 col-md-12 calboxshadow" style="border-radius: 8px;" >
+              
+                    
+
+
+
+
+
+
+
+
+
+
+              <div class="table-responsive" id="GFG" >
+                <table class="table card-table table-vcenter  datatable" id="dataTable" >
+                  <thead>
+                    <tr>
+                      <!-- <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices"></th> -->
+                
+                      <!-- <th>#</th> -->
+                      <th> NAME	</th>
+                      <th>PRICE</th>
+                       <th>QUANTITY</th>
+                       <th>TOTAL</th>
+                       <th>     <button class="btn btn-danger" id="cleartablebtnid" onclick="clearallfunc()" style="width: 100%;" type="button" >
+                        Clear all                     </button>
+               </th>
+                       
+                       
+                       <!--
+                      <th>Status</th>
+                      <th>Gross</th>
+                      <th></th> -->
+                    </tr>
+                  </thead>
+                  <tbody >
+
+                                        
+
+
+
+</tbody>
+                </table>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+                      </div>
+
+
+
+
+
+            <div class="col-sm-6 col-md-3 calboxshadow" style="padding: 10px;" > 
+
+
+
+               <br />
+              <label>Enter Quantity</label>
+               <input class="form-control" type="number" id="prdquantity" placeholder="Enter Quantity" min="1" value="0.5">
+
+
+               <br />
+
+               <button class="btn btn-primary " id="addbtn" style="width: 100%;" type="button">
+                Add
+               </button>
+
+               <br />
+               <br />
+
+               <button class="btn btn-secondary" id="sendButton"  style="width: 100%;" type="button" >
+                Print
+               </button>
+       
+
+
+
+
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-6 calboxshadow" style="padding: 10px;  border-radius: 8px; min-height: 106px;"  onclick="pardo()" > 
+            
+            
+             
+
+
+              <!-- <input  > -->
+
+              <select style="display: none; overflow: scroll; width: 100%; font-size: larger;" class="selector" id="prodvar" >
+                       
+
+              <% if(docs){ %> 
+                <option > Click here to Select a Product 🍞</option>
+   
+               
+               <% for(var i = 0; i< docs.length; i++) {%> 
+                
+                
+             
+                 <option  value="name=<%= docs[i].productname %>  price=<%= docs[i].productprice %>"><%= docs[i].productname %>| ₦<%= docs[i].productprice %> 🐟| <%= docs[i].productweight %> KG left | <%= docs[i].productquantity %> Cartons</option>
+                 
+                
+             <% } %>
+       
+           
+       
+         
+                        
+               <%     }else{  %> 
+       
+       
+
+
+
+                <option value="You've no products">
+            
+                 <% } %> 
+               
+                        
+               </select>
+            
+            </div>
+      
+
+     
+       
+
+
+
+
+
+      
+
+            <div class="col-sm-6 col-md-3 calboxshadow" style="border-radius: 8px;"  > 
+
+<div style=" width: 100%;">
+
+  <div style="position: relative; float: left; padding: 25px; font-size: large;" > 
+    TOTAL : 
+
+  
+  </div>
+
+  <div>
+
+    <p id="totalia" style="font-size: x-large; position: relative; top: 1rem;">
+₦0.00
+    </p>
+
+
+    <br />
+
+
+          <!-- Payment Total & Remaining UI moved above checkboxes -->
+              <div id="paymentTotalsBox" style="margin-bottom: 18px; padding: 12px 18px; background: #f0f6ff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); max-width: 400px; font-size: 1.2rem; color: #206bc4; margin-left:auto; margin-right:auto;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span><b>Payment Total:</b></span>
+                  <span id="paymentMethodTotal">₦0.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+                  <span><b></b></span>
+                  <span id="paymentMethodRemaining">₦0.00</span>
+                </div>
+              </div>
+  </div>
+
+
+
+
+
+  </div>
+
+
+</div>
+          
+
+              <div class="col-sm-6 col-md-12 calboxshadow" style="border-radius: 16px; margin-top: 28px; padding: 40px 32px; background: #f8fafc; box-shadow: 0 4px 24px rgba(32, 107, 196, 0.08); display: flex; justify-content: center;">
+            <div style="width: 100%; max-width: 600px;">
+              <header style="font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; text-align: center; color: #206bc4; letter-spacing: 1px;">Payment Methods</header>
+        
+              <div id="paymentMethodsContainer" style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 12px; justify-content: center;">
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="cash" class="payment-method-checkbox" id="pm-cash" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-cash" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Cash</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="cash" placeholder="Cash Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="transfer" class="payment-method-checkbox" id="pm-transfer" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-transfer" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Transfer</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="transfer" placeholder="Transfer Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="card" class="payment-method-checkbox" id="pm-card" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-card" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Card</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="card" placeholder="Card Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="credit" class="payment-method-checkbox" id="pm-credit" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-credit" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Credit</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="credit" placeholder="Credit Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+              </div>
+
+            <script>
+  document.querySelectorAll('.payment-method-checkbox').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      var input = document.querySelector('.payment-amount-input[data-method="' + checkbox.value + '"]');
+      if (checkbox.checked) {
+        input.style.display = 'inline-block';
+        input.disabled = false;
+        input.value = ''; // Make it empty when checked
+      } else {
+        input.style.display = 'none';
+        input.disabled = true;
+        input.value = ''; // Make it empty when unchecked
+      }
+    });
+  });
+</script>
+            </div>
+          </div>
+          
+
+
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+
+        <br />
+
+       <h2 class="ml1">
+        Welcome  <%= data.firstname %> <span class="mt-1 small text-muted" style="font-size:10px; color: rgb(54, 54, 176); text-transform: uppercase;"> <%= data.role %></span>
+
+        
+       </h2> 
+       
+        
+          <div class=" row-holder">
+      
+
+           
+
+
+
+
+            <div class="row row-deck">
+              <div class="col-md-3">
+                <div class="card">
+                     <a  href="/eventoverview"> <div class="card-body">   ALL USERS </div> </a>                
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card">
+                     <a  href="/eventoverview"> <div class="card-body"> ALL PRODUCTS   </div> </a>              
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card">
+                    <a  href="/saleshistory"> <div class="card-body">   TOTAL SALES    </div> </a>           
+                </div>
+              </div>
+
+           
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+          </div>
+
+          <hr />
+     
+         <h2 class="ml1">
+          Recently added Products
+
+
+
+         </h2>
+
+
+
+
+
+
+          <div class="page">
+
+            <div class="page-wrapper">
+              <div class="page-body">
+                <div class="container">
+                 
+
+
+                    
+      <% if(docs){ %> 
+      
+
+
+
+        <div class="row row-deck row-cards">
+
+
+
+        <% for(var i = 0; i< docs.length; i++) {%>  
+       
+          
+     
+          <div class="col-md-3 tooltiper" id="tooltiper" onclick="window.location.replace('/updateproduct?tagid=<%= docs[i]._id %>')" data-toggle="tooltip" data-placement="top" data-html="true" title="<%= docs[i].shortdescription %>">
+            <div class="card">
+
+
+
+              <div class="card d-flex flex-column">
+      
+                <div class="card-body d-flex flex-column">
+                  <h3 class="card-title"><a href="#"> <%= docs[i].productname %> </a></h3>
+                  <div class="text-secondary" style="max-height: 40px; height: 40px; overflow: hidden; display: flex;">₦ <%- docs[i].productprice %><span style="position: flex; right: 1;" class="text-secondary"></span></div>
+
+
+
+
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+       
+          
+     
+         
+    
+      <% } %>
+
+
+      
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+  
+                 
+        <% }else{  %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+     
+          <% } %> 
+
+                 
+
+
+
+
+
+
+
+
+
+
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+
+<%- include('footer') %>
+
+
+        
+      </div>
+      
+    </div>
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+    <script src="js/select2.min.js" defer></script>
+    <script src="js/tabler.min.js" defer></script>
+    <script src="js/demo.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+      // @formatter:off
+      document.addEventListener("DOMContentLoaded", function () {
+        var el;
+        window.TomSelect && (new TomSelect(el = document.getElementById('select-states'), {
+          copyClassesToDropdown: false,
+          dropdownParent: 'body',
+          controlInput: '<input>',
+          render:{
+            item: function(data,escape) {
+              if( data.customProperties ){
+                return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+              }
+              return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+              if( data.customProperties ){
+                return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+              }
+              return '<div>' + escape(data.text) + '</div>';
+            },
+          },
+        }));
+      });
+      // @formatter:on
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+  // Set different data-title values for each element
+  var tooltips = document.querySelectorAll('.tooltiper');
+
+  tooltips.forEach(function(tooltip, index) {
+
+    // Get and log the data-toggle attribute value
+//  var tooltipElement = document.getElementById('tooltiper');
+  var dataToggleValue = tooltip.getAttribute('title');
+  console.log('data-toggle value:', dataToggleValue);
+  var tooltipText = dataToggleValue.replace(/<p>/g, '').replace(/<\/p>/g, '');
+   
+
+    tooltip.setAttribute('title', tooltipText);
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+//   var startdaterotor = document.querySelectorAll('.startdateget');
+
+//   startdaterotor.forEach(function(startdate, index) {
+
+
+//   var  startdatenew = new Date(startdate.value).toDateString();
+
+//   let sentence = `I am ${startdatenew} a staff of Royal Suites.`;
+
+
+
+//   console.log(sentence);
+
+
+
+// });
+
+
+
+
+
+
+
+
+
+
+
+  // var startdate = new Date(document.getElementById('startdate').value).toDateString();
+
+// var enddate = new Date(document.getElementById('enddate').value).toDateString();
+
+ 
+
+// document.getElementById('date-outputer').innerHTML = startdate 
+
+
+
+
+
+      // @formatter:off
+      document.addEventListener("DOMContentLoaded", function () {
+        const rating = new StarRating('#rating-default', {
+          tooltip: false,
+          clearable: false,
+          stars: function (el, item, index) {
+             el.innerHTML = `<!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg xmlns="http://www.w3.org/2000/svg" class="icon gl-star-full icon-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" stroke-width="0" fill="currentColor" /></svg>`;
+          },
+         })
+      })
+      // @formatter:on
+  
+
+
+    </script>
+
+<script>
+
+
+function pardo(){
+  $(".select2-dropdown").show()
+  
+}
+
+
+  $(document).ready(function () {
+//change selectboxes to selectize mode to be searchable
+$(".selector").select2();
+});
+
+
+
+</script>
+
+
+
+<script src="js/toast.js"></script>
+<script src="js/shared-utils.js"></script>
+<script src="libs/star-rating.js/dist/star-rating.min.js" defer></script>
+<script defer src="js/ratingcall.js"> </script>
+<script src="js/btcon.js" > </script>
+<script  src="js/addprodhandler.js"> </script>
+
+  </body>
+</html>

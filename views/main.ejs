@@ -1,0 +1,441 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title> welcome.</title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css" rel="stylesheet"/>
+    <link href="css/tabler-flags.min.css" rel="stylesheet"/>
+    <link href="css/tabler-payments.min.css" rel="stylesheet"/>
+    <link href="css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link href="css/demo.min.css" rel="stylesheet"/>
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+      	font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
+  <body >
+    <script src="js/demo-theme.min.js"></script>
+    <div class="page">
+      <!-- Navbar -->
+
+    
+
+      <%- include('header') %>
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="page-wrapper">
+
+
+
+
+        <br />
+
+       <h2 class="ml1">
+        Welcome  <%= data.firstname %> <span class="mt-1 small text-muted" style="font-size:10px; color: rgb(54, 54, 176); text-transform: uppercase;"> <%= data.role %></span>
+
+        
+       </h2> 
+       
+        
+          <div class=" row-holder">
+      
+
+           
+
+
+
+
+            <div class="row row-deck">
+
+              <div class="col-md-3">
+
+
+
+                <div class="card dropdown">
+
+
+                  <a  href="#" data-bs-toggle="dropdown"> <div class="card-body">   Start Selling   </div> </a>           
+                  
+                  <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <a href="/sell?tagid=<%= data._id %>" class="dropdown-item">Sell Per Kilo (KG)  </a>
+                    <a href="/wholesale" class="dropdown-item">Sell Per Carton </a>
+                    <a href="/eventoverview" class="dropdown-item">Products</a>
+                    <a href="/users" class="dropdown-item">Users</a>
+                    <!-- <a href="#" class="dropdown-item">Liked</a>
+                    <a href="#" class="dropdown-item">Following</a>
+                    <a href="#" class="dropdown-item">Interests</a> -->
+                    <div class="dropdown-divider"></div>
+                    <a href="settings" class="dropdown-item">Account settings</a>
+                    <a href="/logout" class="dropdown-item">Log out</a>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+
+              <div class="col-md-3">
+                <div class="card">
+                    <a  href="/saleshistory"> <div class="card-body">   Sales History    </div> </a>           
+                </div>
+
+              </div>
+
+ 
+
+
+
+              <div class="col-md-3">
+                <div class="card">
+                     <a  href="/users"> <div class="card-body">   All Users </div> </a>                
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card">
+                     <a  href="/eventoverview"> <div class="card-body"> All Products  </div> </a>              
+                </div>
+              </div>
+              <br />
+                <div class="col-md-3">
+                <div class="card">
+                     <a  href="/viewstock"> <div class="card-body"> All Stock  </div> </a>              
+                </div>
+              </div>
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+          </div>
+
+          <hr />
+     
+         <h2 class="ml1">
+          Recently added Products
+
+
+         </h2>
+
+
+
+
+
+
+          <div class="page">
+
+            <div class="page-wrapper">
+              <div class="page-body">
+                <div class="container">
+                 
+
+
+                    
+      <% if(docs){ %> 
+      
+
+
+
+        <div class="row row-deck row-cards">
+
+
+
+        <% for(var i = 0; i< docs.length; i++) {%>  
+       
+          
+     
+          <div class="col-md-3 tooltiper" id="tooltiper" onclick="window.location.replace('/updateproduct?tagid=<%= docs[i]._id %>')" data-toggle="tooltip" data-placement="top" data-html="true" title="<%= docs[i].shortdescription %>">
+            <div class="card">
+
+
+
+              <div class="card d-flex flex-column">
+                <!-- <a href="#">
+                  <img style="max-height: 100px;" class="card-img-top" src="img/uglyfish.jpeg" alt="" />
+                </a> -->
+                <div class="card-body d-flex flex-column">
+                  <h3 class="card-title"><a href="#"> <%= docs[i].productname %> </a></h3>
+                  <div class="text-secondary" style="max-height: 15px; height: 15px; overflow: hidden; display: flex;">₦ <%- docs[i].productprice %><span style="position: flex; right: 1;" class="text-secondary"></span></div>
+
+
+
+
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+       
+          
+     
+         
+    
+      <% } %>
+
+
+      
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+  
+                 
+        <% }else{  %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+     
+          <% } %> 
+
+                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body" style="height: 10rem"></div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body" style="height: 10rem"></div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body" style="height: 10rem"></div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body" style="height: 10rem"></div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-body" style="height: 10rem"></div>
+                      </div>
+                    </div> -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+
+<%- include('footer') %>
+
+
+        
+      </div>
+      
+    </div>
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+    <script src="js/tabler.min.js" defer></script>
+    <script src="js/demo.min.js" defer></script>
+
+
+    <script>
+
+  // Set different data-title values for each element
+  var tooltips = document.querySelectorAll('.tooltiper');
+
+  tooltips.forEach(function(tooltip, index) {
+
+    // Get and log the data-toggle attribute value
+//  var tooltipElement = document.getElementById('tooltiper');
+  var dataToggleValue = tooltip.getAttribute('title');
+  console.log('data-toggle value:', dataToggleValue);
+  var tooltipText = dataToggleValue.replace(/<p>/g, '').replace(/<\/p>/g, '');
+   
+
+    tooltip.setAttribute('title', tooltipText);
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+//   var startdaterotor = document.querySelectorAll('.startdateget');
+
+//   startdaterotor.forEach(function(startdate, index) {
+
+
+//   var  startdatenew = new Date(startdate.value).toDateString();
+
+//   let sentence = `I am ${startdatenew} a staff of Royal Suites.`;
+
+
+
+//   console.log(sentence);
+
+
+
+// });
+
+
+
+
+
+
+
+
+
+
+
+  // var startdate = new Date(document.getElementById('startdate').value).toDateString();
+
+// var enddate = new Date(document.getElementById('enddate').value).toDateString();
+
+ 
+
+// document.getElementById('date-outputer').innerHTML = startdate 
+
+
+
+
+
+      // @formatter:off
+      document.addEventListener("DOMContentLoaded", function () {
+        const rating = new StarRating('#rating-default', {
+      		tooltip: false,
+      		clearable: false,
+      		stars: function (el, item, index) {
+      			 el.innerHTML = `<!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg xmlns="http://www.w3.org/2000/svg" class="icon gl-star-full icon-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" stroke-width="0" fill="currentColor" /></svg>`;
+      		},
+      	 })
+      })
+      // @formatter:on
+  
+
+
+    </script>
+
+<script src="libs/star-rating.js/dist/star-rating.min.js" defer></script>
+<script defer src="js/ratingcall.js"> </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+	if (req.session) {
+		// delete session object
+
+		if( req.session.role == process.env.adduserrole || req.session.role ==  process.env.sadduserrole){
+
+console.log(req.session.role)
+			
+
+
+		}
+
+
+
+
+		else{
+
+
+		    const referer = req.headers.referer;
+
+		   
+    if (referer) {
+        res.send('Only admin can view this page <a href=' + referer +'>Go Back.</a> ' )
+    } else {
+        // If no referer is provided, redirect to a default page
+        res.send('Only admin can view this page <a href="/">Go Home.</a> ' )
+    }
+
+		}
+
+
+
+
+
+	} else {
+        const referer = req.headers.referer;
+
+		   
+        if (referer) {
+            return res.redirect(referer)
+        } else {
+            // If no referer is provided, redirect to a default page
+            return res.redirect('/')
+        }
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+	if(req.session.email){
+	
+	
+	
+
+	
+	
+	}
+	else {
+		console.log('no sesh')
+		res.redirect("/");
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

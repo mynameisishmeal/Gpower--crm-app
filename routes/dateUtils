@@ -1,0 +1,14 @@
+// dateUtils.js
+const { format } = require('date-fns-tz');
+
+
+module.exports = {
+  formatDateString: function(inputDateString) {
+    const dateObject = new Date(inputDateString);
+    const formattedDate = format(dateObject, 'yyyy-MM-dd', { timeZone: 'UTC' });
+    return formattedDate;
+
+  
+  }
+};
+

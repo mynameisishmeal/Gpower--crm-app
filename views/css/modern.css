@@ -1,0 +1,194 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Modern CSS Variables - Blue Theme Only */
+:root {
+  /* Remove all purple variables and replace with blue variants */
+  --tblr-purple: #3b82f6;
+  --tblr-purple-rgb: 59, 130, 246;
+  --tblr-purple-text-emphasis: #1e40af;
+  --tblr-purple-bg-subtle: #dbeafe;
+  --tblr-purple-border-subtle: #93c5fd;
+  
+  /* Enhanced blue theme */
+  --tblr-primary: #3b82f6;
+  --tblr-primary-rgb: 59, 130, 246;
+  --tblr-blue: #3b82f6;
+  --tblr-blue-rgb: 59, 130, 246;
+  
+  /* Modern shadows */
+  --tblr-shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tblr-shadow-dropdown: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* Modern border radius */
+  --tblr-border-radius: 0.5rem;
+  --tblr-border-radius-lg: 0.75rem;
+  --tblr-border-radius-sm: 0.375rem;
+}
+
+/* Modern Component Styles */
+.btn {
+  @apply transition-all duration-200 ease-in-out;
+  @apply hover:shadow-lg hover:-translate-y-0.5;
+}
+
+.btn-primary {
+  @apply bg-primary-500 hover:bg-primary-600 border-primary-500 hover:border-primary-600;
+  @apply text-white shadow-lg;
+}
+
+.card {
+  @apply bg-white shadow-lg border-0 rounded-xl;
+  @apply hover:shadow-xl transition-shadow duration-300;
+}
+
+.navbar {
+  @apply bg-white/95 backdrop-blur-sm border-b border-gray-200/50;
+  @apply shadow-sm;
+}
+
+/* Modern form controls */
+.form-control {
+  @apply border-gray-300 rounded-lg;
+  @apply focus:border-primary-500 focus:ring-2 focus:ring-primary-200;
+  @apply transition-all duration-200;
+}
+
+.form-control:focus {
+  @apply shadow-lg;
+}
+
+/* Modern table styles */
+.table {
+  @apply rounded-lg overflow-hidden;
+}
+
+.table thead th {
+  @apply bg-gray-50 text-gray-700 font-semibold;
+  @apply border-b border-gray-200;
+}
+
+.table tbody tr {
+  @apply hover:bg-gray-50 transition-colors duration-150;
+}
+
+/* Modern dropdown */
+.dropdown-menu {
+  @apply rounded-xl shadow-xl border-0;
+  @apply bg-white/95 backdrop-blur-sm;
+}
+
+.dropdown-item {
+  @apply hover:bg-primary-50 hover:text-primary-700;
+  @apply transition-colors duration-150;
+}
+
+/* Modern badges */
+.badge {
+  @apply rounded-full px-3 py-1 text-xs font-medium;
+}
+
+.bg-primary {
+  @apply bg-primary-500;
+}
+
+.text-primary {
+  @apply text-primary-600;
+}
+
+/* Remove purple classes and replace with blue */
+.bg-purple, .text-purple, .border-purple {
+  @apply bg-primary-500 text-primary-600 border-primary-500;
+}
+
+/* Modern animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Modern glass effect */
+.glass {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
+}
+
+/* Modern button hover effects */
+.btn-modern {
+  @apply relative overflow-hidden;
+}
+
+.btn-modern::before {
+  content: '';
+  @apply absolute inset-0 bg-white/20 transform -translate-x-full;
+  @apply transition-transform duration-300 ease-out;
+}
+
+.btn-modern:hover::before {
+  @apply translate-x-0;
+}
+
+/* Modern input groups */
+.input-group {
+  @apply rounded-lg overflow-hidden shadow-sm;
+}
+
+.input-group-text {
+  @apply bg-gray-50 border-gray-300;
+}
+
+/* Modern progress bars */
+.progress {
+  @apply rounded-full bg-gray-200;
+}
+
+.progress-bar {
+  @apply rounded-full bg-gradient-to-r from-primary-500 to-primary-600;
+}
+
+/* Modern alerts */
+.alert {
+  @apply rounded-xl border-l-4;
+}
+
+.alert-primary {
+  @apply bg-primary-50 border-primary-500 text-primary-800;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .card {
+    @apply rounded-lg;
+  }
+  
+  .navbar {
+    @apply px-4;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tblr-body-bg: #0f172a;
+    --tblr-body-color: #f1f5f9;
+    --tblr-bg-surface: #1e293b;
+  }
+  
+  .card {
+    @apply bg-slate-800 text-slate-100;
+  }
+  
+  .navbar {
+    @apply bg-slate-900/95 border-slate-700/50;
+  }
+}

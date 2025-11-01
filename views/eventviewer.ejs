@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta19
+* @link https://tabler.io
+* Copyright 2018-2023 The Tabler Authors
+* Copyright 2018-2023 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      Markdown - Tabler - Premium and Open Source dashboard template with
+      responsive and high quality UI.
+    </title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css" rel="stylesheet" />
+    <link href="css/tabler-flags.min.css?1684106062" rel="stylesheet" />
+    <link href="css/tabler-payments.min.css?1684106062" rel="stylesheet" />
+    <link href="css/tabler-vendors.min.css?1684106062" rel="stylesheet" />
+    <link href="css/demo.min.css?1684106062" rel="stylesheet" />
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script> -->
+    <script src="./js/jquery.timepicker.min.css"> </script>
+    <script src="./js/inputmask.min.js"> </script>
+    <script src="./js/jquery-3.6.0.min.js"> </script>
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      :root {
+        --tblr-font-sans-serif: "Inter Var", -apple-system, BlinkMacSystemFont,
+          San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
+  <body>
+    <script src="js/demo-theme.min.js"></script>
+    <div class="page">
+      <!-- Navbar -->
+      <%- include('header') %>
+
+      <div class="page-wrapper">
+        <!-- Page header -->
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <h2 class="page-title">Markdown</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="row justify-content-center">
+              <div class="col-lg-10 col-xl-9">
+                <div class="card card-lg">
+                  <div class="card-body markdown">
+                    <% if(docs){ %>
+
+                    <input
+                      type="hidden"
+                      id="meidgetter"
+                      value="<%= docs._id %>"
+                    />
+                    <!-- Header Section -->
+                    <div class="row event-header">
+                      <div class="col">
+                        <h1><%= docs.eventtitle %></h1>
+                        <p class="lead"><%- docs.shortdescription %></p>
+                      </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <!-- Event Details -->
+
+                    <div class="row event-details organizer-details">
+                      <div class="col-md-6">
+                        <h2>Date and Time</h2>
+
+                        <% if(docs.eventfreq == 'single'){ %> <% if
+                        (docs.displayeventendtime == 'on' && docs.seatingstatus
+                        == 'on') { %>
+                        <!-- Code to execute if condition1 is true -->
+
+                        <!-- <p>February 28 · 9am - March 2 · 9pm WAT</p> -->
+
+                        <p>
+                          <%= docs.eventstartdate %> • <%= docs.eventenddate %>
+                        </p>
+
+                        <p>
+                          <%= docs.eventstarttime %> - <%= docs.eventendtime %>
+                        </p>
+
+                        <% } else if (docs.seatingstatus == null &&
+                        docs.displayeventendtime == 'on' ){ %>
+                        <!-- Code to execute if condition2 is true -->
+
+                        <!-- <p>February 28 · 9am - March 2 · 9pm WAT</p> -->
+
+                        <p>
+                          Event Ends : <%= docs.eventenddate %> • <%=
+                          docs.eventendtime %>
+                        </p>
+
+                        <% } else if(docs.displayeventendtime == null &&
+                        docs.seatingstatus == 'on') { %>
+
+                        <span id="date-outputer">
+                          <p>
+                            Event Starts : <%= docs.eventstartdate %> • <%=
+                            docs.eventstarttime %>
+                          </p>
+                        </span>
+
+                        <!-- Code to execute if neither condition1 nor condition2 is true -->
+
+                        <% } else { %>
+
+                        <span id="date-outputer">
+                          <p>Contact Event Organizer</p>
+                        </span>
+
+                        <!-- Code to execute if neither condition1 nor condition2 is true -->
+                        <% } %> <% }else if (docs.eventfreq == "Recurring" ) {
+                        %>
+
+                        <tag>Recurring</tag>
+
+                        <% } %>
+
+                        <b>Time Zone : </b><%= docs.eventtimezone %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <h2>Location</h2>
+
+                        <% if(docs.venuetype == 'Venue'){ %>
+
+                        <p><%= docs.eventaddress %></p>
+                        <p>Show map</p>
+
+                        <% }else{ %>
+
+                        <p style="text-transform: capitalize">
+                          <%= docs.venuetype %>
+                        </p>
+
+                        <% } %>
+
+                        <p></p>
+                      </div>
+                    </div>
+
+                    <br />
+
+                    <!-- Event Description -->
+                    <div class="row event-description">
+                      <div class="col">
+                        <h2>About this Event</h2>
+
+                        <%- additional %>
+                      </div>
+                    </div>
+
+                    <!-- Event Tags -->
+                    <div class="row event-tags">
+                      <div class="col">
+                        <h2>Tags</h2>
+
+                        <% for(var i = 0; i< hashtags.length; i++) {%>
+
+                        <span class="followorganizer"><%= hashtags[i] %></span>
+
+                        <% } %>
+                      </div>
+                    </div>
+
+                    <br />
+
+                    <!-- Organizer Details -->
+                    <div class="row organizer-details">
+                      <div class="col">
+                        <h2>About the Organizer</h2>
+                        <p>Organized by <%= docs.eventorganizer %></p>
+                        <p>0 Followers</p>
+                        <p>Contact: [Organizer Contact Information]</p>
+                        <p class="followorganizer">Follow</p>
+                      </div>
+                    </div>
+
+                    <br />
+
+                    <div>
+                      Rate Event
+
+                      <br />
+
+                      <input
+                        type="hidden"
+                        id="ratingvalue"
+                        value="<%= docs.eventrating %>"
+                      />
+
+                      <span
+                        class="gl-star-rating gl-star-rating--ltr"
+                        data-star-rating=""
+                        ><select style="display: none" id="rating-default">
+                          <option value="">Select a rating</option>
+                          <option value="5">Excellent</option>
+                          <option value="4">Very Good</option>
+                          <option value="3">Average</option>
+                          <option value="2">Poor</option>
+                          <option value="1">Terrible</option>
+                        </select>
+
+                        <span class="gl-star-rating--stars" data-rating="4"
+                          ><span data-index="0" data-value="1" class="gl-active"
+                            ><!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon gl-star-full icon-1"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              stroke-width="2"
+                              stroke="currentColor"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="pointer-events: none"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              ></path>
+                              <path
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"
+                                fill="currentColor"
+                              ></path></svg></span
+                          ><span data-index="1" data-value="2" class="gl-active"
+                            ><!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon gl-star-full icon-1"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              stroke-width="2"
+                              stroke="currentColor"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="pointer-events: none"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              ></path>
+                              <path
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"
+                                fill="currentColor"
+                              ></path></svg></span
+                          ><span data-index="2" data-value="3" class="gl-active"
+                            ><!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon gl-star-full icon-1"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              stroke-width="2"
+                              stroke="currentColor"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="pointer-events: none"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              ></path>
+                              <path
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"
+                                fill="currentColor"
+                              ></path></svg></span
+                          ><span
+                            data-index="3"
+                            data-value="4"
+                            class="gl-active gl-selected"
+                            ><!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon gl-star-full icon-1"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              stroke-width="2"
+                              stroke="currentColor"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="pointer-events: none"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              ></path>
+                              <path
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"
+                                fill="currentColor"
+                              ></path></svg></span
+                          ><span data-index="4" data-value="5" class=""
+                            ><!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon gl-star-full icon-1"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              stroke-width="2"
+                              stroke="currentColor"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="pointer-events: none"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              ></path>
+                              <path
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"
+                                fill="currentColor"
+                              ></path></svg></span></span
+                      ></span>
+                    </div>
+
+                    <hr />
+
+                    <div id="disqus_thread"></div>
+
+                    <% }else{ %>
+
+                    <div>Conatct admin immidiateely</div>
+
+                    <% } %>
+                  </div>
+
+                  <!-- <div class="card-body markdown">
+                    <h1 id="whos-that-then">Who’s that then?</h1>
+                    <p>Well, she turned me into a newt. Burn her! We want a shrubbery!! Well, I got better. Listen. Strange women lying in ponds distributing swords is no basis for a system of government. Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.</p>
+                    <p>Listen. <strong>Strange women lying in ponds distributing swords is no basis for a system of government.</strong> <em>Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.</em> The swallow may fly south with the sun, and the house martin or the plover may seek warmer climes in winter, yet these are not strangers to our land.</p>
+                    <h2 id="well-mercias-a-temperate-zone">Well, Mercia’s a temperate zone!</h2>
+                    <p>You don’t frighten us, English pig-dogs! Go and boil your bottoms, sons of a silly person! I blow my nose at you, so-called Ah-thoor Keeng, you and all your silly English K-n-n-n-n-n-n-n-niggits! A newt?</p>
+                    <ol>
+                      <li>Listen. Strange women lying in ponds distributing swords is no basis for a system of government. Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.</li>
+                      <li>I don’t want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!</li>
+                      <li>We found them.</li>
+                    </ol>
+                    <h3 id="what-do-you-mean">What do you mean?</h3>
+                    <p>Oh! Come and see the violence inherent in the system! Help, help, I’m being repressed! The Lady of the Lake, her arm clad in the purest shimmering samite, held aloft Excalibur from the bosom of the water, signifying by divine providence that I, Arthur, was to carry Excalibur. That is why I am your king.</p>
+                    <ul>
+                      <li>The Knights Who Say Ni demand a sacrifice!</li>
+                      <li>Be quiet!</li>
+                      <li>Bloody Peasant!</li>
+                    </ul>
+                    <p>Well, I got better. Camelot! A newt? We want a shrubbery!! The Lady of the Lake, her arm clad in the purest shimmering samite, held aloft Excalibur from the bosom of the water, signifying by divine providence that I, Arthur, was to carry Excalibur. That is why I am your king.</p>
+                    <p>Shut up! …Are you suggesting that coconuts migrate? I’m not a witch. Well, we did do the nose.</p>
+                    <p>Well, how’d you become king, then? Shut up! Ni! Ni! Ni! Ni! Well, Mercia’s a temperate zone! I don’t want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!</p>
+                    <div class="language-scss highlighter-rouge">
+                      <div class="highlight">
+                        <pre class="highlight"><code><span class="nv">$extra-colors</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s2">"blue"</span><span class="o">:</span> <span class="nv">$blue</span><span class="o">,</span>
+  <span class="s2">"azure"</span><span class="o">:</span> <span class="nv">$azure</span><span class="o">,</span>
+  <span class="s2">"indigo"</span><span class="o">:</span> <span class="nv">$indigo</span><span class="o">,</span>
+  <span class="s2">"purple"</span><span class="o">:</span> <span class="nv">$purple</span><span class="o">,</span>
+  <span class="s2">"pink"</span><span class="o">:</span> <span class="nv">$pink</span><span class="o">,</span>
+  <span class="s2">"red"</span><span class="o">:</span> <span class="nv">$red</span><span class="o">,</span>
+  <span class="s2">"orange"</span><span class="o">:</span> <span class="nv">$orange</span><span class="o">,</span>
+  <span class="s2">"yellow"</span><span class="o">:</span> <span class="nv">$yellow</span><span class="o">,</span>
+  <span class="s2">"lime"</span><span class="o">:</span> <span class="nv">$lime</span><span class="o">,</span>
+  <span class="s2">"green"</span><span class="o">:</span> <span class="nv">$green</span><span class="o">,</span>
+  <span class="s2">"teal"</span><span class="o">:</span> <span class="nv">$teal</span><span class="o">,</span>
+  <span class="s2">"cyan"</span><span class="o">:</span> <span class="nv">$cyan</span><span class="o">,</span>
+  <span class="s2">"gray"</span><span class="o">:</span> <span class="nv">$gray-600</span><span class="o">,</span>
+  <span class="s2">"gray-dark"</span><span class="o">:</span> <span class="nv">$gray-800</span><span class="o">,</span>
+  <span class="s2">"dark"</span><span class="o">:</span> <span class="nv">$dark</span>
+<span class="p">)</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
+</code></pre>
+                      </div>
+                    </div>
+                    <p>You can’t expect to wield supreme power just ‘cause some watery tart threw a sword at you! You don’t frighten us, English pig-dogs! Go and boil your bottoms, sons of a silly person! I blow my nose at you, so-called Ah-thoor Keeng, you and all your silly English K-n-n-n-n-n-n-n-niggits!</p>
+                    <p>What do you mean? Listen. Strange women lying in ponds distributing swords is no basis for a system of government. Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.</p>
+                    <p><img src="./static/photos/contemporary-black-and-white-home-decor.jpg" alt="Image Alt" /></p>
+                    <p>Well, how’d you become king, then? You can’t expect to wield supreme power just ‘cause some watery tart threw a sword at you! The Lady of the Lake, her arm clad in the purest shimmering samite, held aloft Excalibur from the bosom of the water, signifying by divine providence that I, Arthur, was to carry Excalibur. That is why I am your king.</p>
+                    <p>Well, I got better. Shut up! Will you shut up?! Well, I got better. I don’t want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!</p>
+                    <hr />
+                    <h1 id="typographic-elements">Typographic elements</h1>
+                    <h2 id="emphasis">Emphasis</h2>
+                    <p><strong>This is bold text</strong></p>
+                    <p><strong>This is bold text</strong></p>
+                    <p><em>This is italic text</em></p>
+                    <p><em>This is italic text</em></p>
+                    <p><del>Strikethrough</del></p>
+                    <h2 id="blockquotes">Blockquotes</h2>
+                    <blockquote>
+                      <p>Blockquotes can also be nested…</p>
+                      <blockquote>
+                        <p>…by using additional greater-than signs right next to each other…</p>
+                        <blockquote>
+                          <p>…or with spaces between arrows.</p>
+                        </blockquote>
+                      </blockquote>
+                    </blockquote>
+                    <p>Bloody Peasant! What do you mean? It’s only a model. Well, Mercia’s a temperate zone!</p>
+                    <p>I am your king. Shh! Knights, I bid you welcome to your new home. Let us ride to Camelot! Ni! Ni! Ni! Ni! Who’s that then? Listen. Strange women lying in ponds distributing swords is no basis for a system of government. Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.</p>
+                    <h2 id="lists">Lists</h2>
+                    <p>Unordered</p>
+                    <ul>
+                      <li>Create a list by starting a line with <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, or <code class="language-plaintext highlighter-rouge">*</code></li>
+                      <li>Sub-lists are made by indenting 2 spaces:
+                        <ul>
+                          <li>Marker character change forces new list start:
+                            <ul>
+                              <li>Ac tristique libero volutpat at</li>
+                              <li>Facilisis in pretium nisl aliquet</li>
+                              <li>Nulla volutpat aliquam velit</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>Very easy!</li>
+                    </ul>
+                    <p>Ordered</p>
+                    <ol>
+                      <li>Lorem ipsum dolor sit amet</li>
+                      <li>Consectetur adipiscing elit</li>
+                      <li>Integer molestie lorem at massa</li>
+                    </ol>
+                    <h2 id="code">Code</h2>
+                    <p>Inline <code class="language-plaintext highlighter-rouge">code</code></p>
+                    <p>Indented code</p>
+                    <div class="language-plaintext highlighter-rouge">
+                      <div class="highlight">
+                        <pre class="highlight"><code>// Some comments
+line 1 of code
+line 2 of code
+line 3 of code
+</code></pre>
+                      </div>
+                    </div>
+                    <p>Block code “fences”</p>
+                    <div class="language-plaintext highlighter-rouge">
+                      <div class="highlight">
+                        <pre class="highlight"><code>Sample text here...
+</code></pre>
+                      </div>
+                    </div>
+                    <p>Syntax highlighting</p>
+                    <div class="language-js highlighter-rouge">
+                      <div class="highlight">
+                        <pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">bar</span><span class="o">++</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+</code></pre>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer footer-transparent d-print-none">
+          <div class="container-xl">
+            <div class="row text-center align-items-center flex-row-reverse">
+              <div class="col-lg-auto ms-lg-auto">
+                <ul class="list-inline list-inline-dots mb-0">
+                  <li class="list-inline-item">
+                    <a
+                      href="https://tabler.io/docs"
+                      target="_blank"
+                      class="link-secondary"
+                      rel="noopener"
+                      >Documentation</a
+                    >
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="./license.html" class="link-secondary">License</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a
+                      href="https://github.com/tabler/tabler"
+                      target="_blank"
+                      class="link-secondary"
+                      rel="noopener"
+                      >Source code</a
+                    >
+                  </li>
+                  <li class="list-inline-item">
+                    <a
+                      href="https://github.com/sponsors/codecalm"
+                      target="_blank"
+                      class="link-secondary"
+                      rel="noopener"
+                    >
+                      <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon text-pink icon-filled icon-inline"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                          d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"
+                        />
+                      </svg>
+                      Sponsor
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                <ul class="list-inline list-inline-dots mb-0">
+                  <li class="list-inline-item">
+                    Copyright &copy; 2023
+                    <a href="." class="link-secondary">Tabler</a>. All rights
+                    reserved.
+                  </li>
+                  <li class="list-inline-item">
+                    <a
+                      href="./changelog.html"
+                      class="link-secondary"
+                      rel="noopener"
+                    >
+                      v1.0.0-beta19
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+
+    <script>
+      // var startdate = new Date(document.getElementById('startdate').value).toDateString();
+
+      // var enddate = new Date(document.getElementById('enddate').value).toDateString();
+
+      // document.getElementById('date-outputer').innerHTML = startdate + ' - ' + enddate
+
+      // @formatter:off
+      document.addEventListener("DOMContentLoaded", function () {
+        const rating = new StarRating("#rating-default", {
+          tooltip: false,
+          clearable: false,
+          stars: function (el, item, index) {
+            el.innerHTML = `<!-- Download SVG icon from http://tabler-icons.io/i/star-filled --><svg xmlns="http://www.w3.org/2000/svg" class="icon gl-star-full icon-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" stroke-width="0" fill="currentColor" /></svg>`;
+          },
+        });
+      });
+      // @formatter:on
+
+      // Get the select element
+      var selectElement = document.getElementById("rating-default");
+
+      // Add onchange event listener
+      selectElement.addEventListener("change", function () {
+        // Get the selected option
+        var selectedOption = selectElement.value;
+        var meidgetter = document.getElementById("meidgetter").value;
+
+        // Update the paragraph with the selected option
+        //   document.getElementById("selectedOption").textContent = "Selected Option: " + selectedOption;
+
+        console.log(selectedOption);
+        console.log(meidgetter);
+
+        $.ajax({
+          type: "POST",
+          url: "/rateevent",
+          data: {
+            eventrating: selectedOption,
+            meidgetter: meidgetter,
+          },
+          dataType: "json",
+          success: function (response) {
+            // window.location.replace('/eventoverview')
+            alert(response.Failed)
+            window.location.reload()
+          },
+        });
+      });
+    </script>
+
+    <script src="libs/star-rating.js/dist/star-rating.min.js" defer></script>
+
+    <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+      (function () {
+        // DON'T EDIT BELOW THIS LINE
+        var d = document,
+          s = d.createElement("script");
+        s.src = "https://event-loop.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript
+      >Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript"></a
+    ></noscript>
+
+    <script
+      id="dsq-count-scr"
+      src="//event-loop.disqus.com/count.js"
+      async
+    ></script>
+
+    <script src="js/tabler.min.js"></script>
+    <script src="js/demo.min.js"></script>
+
+    <script src="js/ratinghandler.js"> </script>
+  </body>
+</html>

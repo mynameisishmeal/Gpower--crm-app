@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Welcome, <%= data.fname %></title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css" rel="stylesheet"/>
+    <link href="css/tabler-flags.min.css" rel="stylesheet"/>
+    <link href="css/tabler-payments.min.css" rel="stylesheet"/>
+    <link href="css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link href="css/demo.min.css" rel="stylesheet"/>
+
+    <style>
+      /* Custom Styles */
+      .calboxshadow {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+
+      .selectorvar {
+        width: 100%;
+        display: flex;                /* Enable flexbox */
+        justify-content: center;      /* Center content horizontally */
+        align-items: center;          /* Center content vertically */
+        padding: 25px;  /* Fixed padding */
+        border: #206ac40c 1px solid;
+        border-radius: 8px;
+        min-height: 106px;
+      }
+
+      .elcentre{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        
+      }
+
+      .select2 {
+        display: block;             /* Ensures it behaves like a block element */
+        width: 100% !important;     /* Forces the select box to take full width */
+        font-size: 18px;
+        box-sizing: border-box;     /* Ensures padding/border do not affect the width */
+        padding: 10px;   
+      }
+
+      .select2-dropdown {
+        display: block;
+        position: relative;
+        width: 100%;
+        font-size: larger;
+        background-color: #206bc4;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+
+      .select2-search__field {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="js/demo-theme.min.js"></script>
+
+    <div class="page">
+      <!-- Navbar -->
+      <%- include('header') %>
+
+      <div class="page-wrapper">
+        <div class="calboxshadow row g-0 text-center" style="margin: 10px 10px 30px 10px; border-radius: 8px;">
+          <p id="connectionStatus"></p>
+          <header style="font-size: larger;">Cartons</header>
+
+          <div class="col-sm-12 col-md-12 calboxshadow" style="border-radius: 8px;">
+            <div class="table-responsive" id="GFG" >
+              <table class="table card-table table-vcenter datatable" id="dataTable" >
+                <thead>
+                  <tr>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>QUANTITY</th>
+                    <th>TOTAL</th>
+                    <th>
+                      <button class="btn btn-danger" id="cleartablebtnid" onclick="clearallfunc()" style="width: 100%;" type="button">
+                        Clear all
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <!-- The stock items will be dynamically inserted here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-md-3 calboxshadow" style="padding: 10px;">
+            <br />
+            <label>Enter Quantity</label>
+            <input class="form-control" type="number" id="stockquantity" placeholder="Enter Quantity" min="1" value="1">
+            <br />
+            <button class="btn btn-primary" id="addbtn" style="width: 100%;" type="button">
+              Add
+            </button>
+            <br /><br />
+            <button class="btn btn-secondary" id="sendButton" style="width: 100%;" type="button">
+              Print
+            </button>
+          </div>
+<div class="col-sm-6 col-md-6 calboxshadow elcentre" id="elcentre">
+
+
+
+
+          <!-- Dropdown for products -->
+          <select id="selectorvar"  class=" selector col-sm-12 col-md-12 calboxshadow selectorvar" style="display: none; overflow: scroll; font-size: larger;">
+    
+            <select class="selector"  ; id="quantityvar" style="display: none; overflow: scroll; font-size: larger;">
+              <!-- The products will be dynamically inserted here -->
+            </select>
+          </select>
+        </div>
+          <div class="col-sm-6 col-md-3 calboxshadow" style="border-radius: 8px;">
+            <div style="width: 100%;">
+              <div style="position: relative; float: left; padding: 25px; font-size: large;">
+                TOTAL :
+              </div>
+              <div>
+                <p id="totalia" style="font-size: x-large; position: relative; top: 1rem;"></p>
+              </div> <br />
+              <div style="padding: 10px 0; font-size: large; color: #206bc4;">
+<p>                  Payment Method Total: <span id="paymentMethodTotal" style="font-weight: bold;">₦0.00</span>  </p>
+              </div>
+            </div>
+          </div>
+
+              <div class="col-sm-6 col-md-12 calboxshadow" style="border-radius: 16px; margin-top: 28px; padding: 40px 32px; background: #f8fafc; box-shadow: 0 4px 24px rgba(32, 107, 196, 0.08); display: flex; justify-content: center;">
+            <div style="width: 100%; max-width: 600px;">
+              <header style="font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; text-align: center; color: #206bc4; letter-spacing: 1px;">Payment Methods</header>
+              <div id="paymentMethodsContainer" style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 12px; justify-content: center;">
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="cash" class="payment-method-checkbox" id="pm-cash" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-cash" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Cash</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="cash" placeholder="Cash Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="transfer" class="payment-method-checkbox" id="pm-transfer" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-transfer" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Transfer</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="transfer" placeholder="Transfer Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="card" class="payment-method-checkbox" id="pm-card" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-card" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Card</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="card" placeholder="Card Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(32,107,196,0.07); padding: 12px 18px;">
+                  <input type="checkbox" name="paymentMethod" value="credit" class="payment-method-checkbox" id="pm-credit" style="width:22px; height:22px; accent-color:#206bc4;">
+                  <label for="pm-credit" style="margin-bottom:0; font-size:1.1rem; color:#206bc4; font-weight:500;">Credit</label>
+                  <input type="number" min="0" step="any" class="payment-amount-input" data-method="credit" placeholder="Credit Amount" style="width:180px; display:none; font-size:18px; border-radius:8px; border:1px solid #206bc4; padding:8px 12px; background:#f0f6ff;" disabled>
+                </div>
+              </div>
+
+              <script>
+function updatePaymentMethodTotal() {
+  let total = 0;
+  document.querySelectorAll('.payment-method-checkbox').forEach(function(checkbox) {
+    if (checkbox.checked) {
+      var input = document.querySelector('.payment-amount-input[data-method="' + checkbox.value + '"]');
+      total += parseFloat(input.value) || 0;
+    }
+  });
+  document.getElementById('paymentMethodTotal').textContent = '₦' + total.toLocaleString();
+
+  // Show remaining cost
+  const saleTotalStr = document.getElementById('totalia').textContent.replace(/[^\d.]/g, '');
+  const saleTotal = parseFloat(saleTotalStr) || 0;
+  const remaining = saleTotal - total;
+  let remainingElem = document.getElementById('remainingCost');
+  if (!remainingElem) {
+    remainingElem = document.createElement('div');
+    remainingElem.id = 'remainingCost';
+    remainingElem.style = 'color:#d9534f; font-weight:bold; margin-top:8px;';
+    document.getElementById('paymentMethodTotal').parentNode.appendChild(remainingElem);
+  }
+  if (remaining > 0) {
+    remainingElem.textContent = 'Remaining: ₦' + remaining.toLocaleString();
+  } else {
+    remainingElem.textContent = '';
+  }
+
+  return total;
+}
+
+                document.querySelectorAll('.payment-method-checkbox').forEach(function(checkbox) {
+                  checkbox.addEventListener('change', function() {
+                    var input = document.querySelector('.payment-amount-input[data-method="' + checkbox.value + '"]');
+                    if (checkbox.checked) {
+                      input.style.display = 'inline-block';
+                      input.disabled = false;
+                    } else {
+                      input.style.display = 'none';
+                      input.disabled = true;
+                      input.value = '';
+                    }
+                    updatePaymentMethodTotal();
+                  });
+                });
+                document.querySelectorAll('.payment-amount-input').forEach(function(input) {
+                  input.addEventListener('input', function() {
+                    updatePaymentMethodTotal();
+                  });
+                });
+
+                // Validate payment method total before submitting
+               
+              </script>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+       <%- include('footer') %>
+    </div>
+
+    <!-- Scripts in correct loading order -->
+    <script src="js/toast.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/tabler.min.js"></script>
+    <script src="js/demo.min.js"></script>
+    <script src="js/shared-utils.js"></script>
+    <script src="js/dynamicupdate.js"></script>
+    <script src="js/sellstock.js"></script>
+
+    <script>
+      // Wait for all scripts to load
+      $(document).ready(function () {
+        console.log('Initializing wholesale page...');
+        
+        // Initialize Select2
+        $(".selector").select2({
+          placeholder: "Select a product...",
+          allowClear: true,
+          width: '100%'
+        });
+        
+        // Set up quantity input for 0.5 steps
+        const quantityInput = document.getElementById('stockquantity');
+        quantityInput.setAttribute('step', '0.5');
+        quantityInput.setAttribute('min', '0.5');
+        quantityInput.addEventListener('input', function() {
+          let value = parseFloat(this.value);
+          if (!isNaN(value) && value > 0) {
+            // Round to nearest 0.5
+            this.value = Math.round(value * 2) / 2;
+          }
+        });
+        
+        // Initial dropdown population
+        if (typeof updateProductDropdown === 'function') {
+          updateProductDropdown();
+        } else {
+          console.error('updateProductDropdown function not found');
+        }
+        
+        // Enhanced Add button event listener
+        document.getElementById('addbtn').addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Add button clicked');
+          
+          // Small delay to allow the add operation to complete
+          setTimeout(function() {
+            if (typeof updateProductDropdown === 'function') {
+              console.log('Refreshing product dropdown after add...');
+              updateProductDropdown();
+            }
+          }, 500);
+        });
+        
+        // Set up periodic refresh every 30 seconds
+        setInterval(function() {
+          if (typeof updateProductDropdown === 'function') {
+            updateProductDropdown();
+          }
+        }, 30000);
+        
+        console.log('Wholesale page initialization complete');
+      });
+
+      // Debug functions
+      window.debugWholesale = function() {
+        console.log('=== Wholesale Debug Info ===');
+        console.log('updateProductDropdown function exists:', typeof updateProductDropdown);
+        console.log('createQuantityControls function exists:', typeof createQuantityControls);
+        console.log('Current products in dropdown:');
+        $('#selectorvar option').each(function() {
+          if (this.value) {
+            console.log(this.text);
+          }
+        });
+        console.log('Current cart items:');
+        $('#dataTable tbody tr').each(function() {
+          const name = $(this).find('td:first').text();
+          const qty = $(this).find('.qty-display').text() || $(this).find('td:eq(2)').text();
+          console.log(`${name}: ${qty}`);
+        });
+      };
+    </script><!-- Add this to your script section: -->
+<script>
+// ... your existing code ...
+
+// **ADD COMPREHENSIVE DEBUG FUNCTIONS**
+window.debugFullSystem = function() {
+    console.log('=== COMPREHENSIVE SYSTEM DEBUG ===');
+    
+    // 1. Check table contents
+    const table = document.getElementById('dataTable');
+    console.log('📋 Table found:', !!table);
+    
+    if (table && table.rows.length > 1) {
+        for (let i = 1; i < table.rows.length; i++) {
+            const row = table.rows[i];
+            const productName = row.cells[0].textContent.trim();
+            const qtyDisplay = row.querySelector('.qty-display');
+            
+            console.log(`--- 📦 Product: ${productName} ---`);
+            console.log('Raw quantity cell HTML:', row.cells[2].innerHTML);
+            console.log('Qty display found:', !!qtyDisplay);
+            
+            if (qtyDisplay) {
+                console.log('✅ Qty display value:', qtyDisplay.textContent);
+                console.log('✅ Parsed value:', parseFloat(qtyDisplay.textContent));
+            } else {
+                console.log('❌ No quantity display found');
+            }
+        }
+    }
+    
+    // 2. Test data collection
+    console.log('\n📊 Testing data collection...');
+    testDataCollection();
+    
+    // 3. Test inventory endpoint
+    console.log('\n🔧 Testing inventory endpoint...');
+    testInventoryUpdate();
+    
+    console.log('=== END COMPREHENSIVE DEBUG ===');
+};
+
+window.testDataCollection = function() {
+    const table = document.getElementById('dataTable');
+    const data = [];
+    
+    if (table && table.rows.length > 1) {
+        for (let i = 1; i < table.rows.length; i++) {
+            const row = table.rows[i];
+            const qtyDisplay = row.querySelector('.qty-display');
+            
+            let quantity;
+            if (qtyDisplay) {
+                quantity = parseFloat(qtyDisplay.textContent.trim()).toString();
+                console.log(`✅ Collected quantity from display: ${quantity}`);
+            } else {
+                quantity = row.cells[2].textContent.replace(/[^\d.]/g, '');
+                console.log(`⚠️ Collected quantity from cell: ${quantity}`);
+            }
+            
+            const rowData = {
+                Column0: row.cells[0].textContent.trim(),
+                Column1: row.cells[1].textContent.trim(),
+                Column2: quantity,
+                Column3: row.cells[3].textContent.trim()
+            };
+            
+            console.log('📦 Row data:', rowData);
+            data.push(rowData);
+        }
+    }
+    
+    console.log('📊 Final collected data:', data);
+    return data;
+};
+
+// **TEST ACTUAL INVENTORY CALL WITH CURRENT DATA**
+window.testCurrentInventory = function() {
+    const data = testDataCollection();
+    
+    if (data.length === 0) {
+        console.log('❌ No data to test');
+        return;
+    }
+    
+    console.log('🧪 Testing inventory update with current cart data...');
+    
+    $.ajax({
+        type: 'POST',
+        url: '/updateInventory',
+        data: { salesData: data },
+        dataType: 'json',
+        success: function(response) {
+            console.log('✅ Current inventory test SUCCESS:', response);
+            alert('✅ Inventory update would work with current cart!');
+        },
+        error: function(xhr, status, error) {
+            console.error('❌ Current inventory test FAILED:', {
+                status: xhr.status,
+                error: error,
+                response: xhr.responseText
+            });
+            alert(`❌ Inventory update would fail: ${xhr.status} - ${error}`);
+        }
+    });
+};
+</script>
+  </body>
+</html>

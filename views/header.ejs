@@ -1,0 +1,649 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title> Accordion - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css" rel="stylesheet"/>
+    <link href="css/tabler-flags.min.css" rel="stylesheet"/>
+    <link href="css/tabler-payments.min.css" rel="stylesheet"/>
+    <link href="css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link href="css/demo.min.css" rel="stylesheet"/>
+    <link href="css/modern.css" rel="stylesheet"/>
+    <link href="css/quick-modern.css" rel="stylesheet"/>
+    <link href="fontawesome-free-6.5.2-web/css/fontawesome.css" rel="stylesheet" />
+
+   
+    <link href="fontawesome-free-6.5.2-web/css/brands.css" rel="stylesheet" />
+    <link href="fontawesome-free-6.5.2-web/css/solid.css" rel="stylesheet" />
+    <link href="./js/jquery.timepicker.min.css" rel="stylesheet" />
+
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+      	font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+    <!-- <script src="tinymce.min.js" referrerpolicy="origin"></script> -->
+    
+    <!-- <script src="libs/tinymce/tinymce.min.js" defer></script> -->
+
+    <!-- <script src="https://cdn.tiny.cloud/1/vbn67ps8qeizo6zfsgzaspjt1m6uyq6atgi87ot17c33tcyx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script> -->
+
+
+  <script src="./js/inputmask.min.js"> </script>
+  <script src="./js/jquery-3.6.0.min.js"> </script>
+
+  <!-- Web Serial thermal printing helper (safe, global) -->
+  <script>
+  (function () {
+    async function printWithWebSerial(formattedText, opts) {
+      const options = Object.assign({
+        // Default: no filters so Chrome shows all serial-capable devices
+        vendorFilters: [],
+        baudRate: 9600,
+        feedLines: 3,
+        cut: true,
+      }, opts || {});
+
+      if (!('serial' in navigator)) {
+        throw new Error('Web Serial API not supported. Use Chrome over HTTPS.');
+      }
+
+      const requestOpts = {};
+      if (Array.isArray(options.vendorFilters) && options.vendorFilters.length) {
+        requestOpts.filters = options.vendorFilters;
+      }
+      const port = await navigator.serial.requestPort(requestOpts);
+      await port.open({ baudRate: options.baudRate, dataBits: 8, stopBits: 1, parity: 'none', flowControl: 'none' });
+
+      const writer = port.writable.getWriter();
+      const enc = new TextEncoder();
+
+      // Initialize, left align, normal size
+      await writer.write(enc.encode('\x1B\x40'));
+      await writer.write(enc.encode('\x1B\x61\x00'));
+      await writer.write(enc.encode('\x1D\x21\x00'));
+
+      // Normalize newlines and print line by line
+      const text = String(formattedText || '').replace(/\r\n?/g, '\n');
+      const lines = text.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        await writer.write(enc.encode(lines[i] + '\n'));
+      }
+
+      if (options.feedLines > 0) {
+        await writer.write(enc.encode('\n'.repeat(options.feedLines)));
+      }
+      if (options.cut) {
+        await writer.write(enc.encode('\x1D\x56\x00'));// partial cut (if supported)
+      }
+
+      writer.releaseLock();
+      await port.close();
+      return true;
+    }
+
+    // Expose globally for use after calling /generate-pdf-receipt
+    window.printWithWebSerial = printWithWebSerial;
+  })();
+  </script>
+  </head>
+  <body >
+    <script src="js/demo-theme.min.js"></script>
+    <div class="page">
+      <!-- Navbar -->
+  
+
+
+
+
+
+
+
+
+      <% if(data){ %> 
+      
+
+
+        <header class="navbar navbar-expand-md d-print-none glass" >
+          <div class="container-xl">
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button> -->
+            <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+              <a href=".">
+                <!-- <img src="#" width="110" height="32" alt="" class="navbar-brand-image"> -->
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-home"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
+              </a>
+            </h1>
+            <div class="navbar-nav flex-row order-md-last">
+              <div class="nav-item d-none d-md-flex me-3">
+                <div class="btn-list">
+  
+  
+  
+                  <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+                    <!-- <form action="" method="get" autocomplete="off" novalidate>
+                      <div class="input-icon">
+                        <span class="input-icon-addon" onclick="searchdb()">
+                     
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                        </span>
+  
+  
+                        <input type="text" value="" class="form-control" placeholder="Search Event…" aria-label="Search in website">
+                      </div>
+                    </form> -->
+
+
+
+<!-- 
+                    <a href="https://github.com/sponsors/codecalm" class="btn btnborderremove" target="_blank" rel="noreferrer">
+                      
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                      Sellx
+                    </a> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  </div>
+                  <p id="connectionStatus"></p>
+
+                  <button class="btn btn-primary btn-modern" id="connectButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bluetooth">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M7 8l10 8l-5 4l0 -16l5 4l-10 8" />
+                    </svg>
+                    <span id="printerStatusText">Connect</span>
+                  </button>
+  
+                  <a href="#" onclick="goBack()" class="btn btn-outline-primary btn-modern" rel="noreferrer">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+            Back
+                  </a>
+  
+                  <!-- <a href="/selltype" class="btn btnborderremove" rel="noreferrer"> -->
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="nav-item dropdown">
+                      <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                                       <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-building-store"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" /><path d="M5 21l0 -10.15" /><path d="M19 21l0 -10.15" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /></svg>
+                    
+
+                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="19" height="24" stroke-width="2"> <path d="M6 10l6 6l6 -6h-12"></path> </svg> 
+                   
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <a href="/sell?tagid=<%= data._id %>" class="dropdown-item">Sell Per Kilo (KG)  </a>
+                        <a href="/wholesale" class="dropdown-item">Sell Per Carton </a>
+                        <a href="/eventoverview" class="dropdown-item">Products</a>
+                        <a href="/users" class="dropdown-item">Users</a>
+                        <!-- <a href="#" class="dropdown-item">Liked</a>
+                        <a href="#" class="dropdown-item">Following</a>
+                        <a href="#" class="dropdown-item">Interests</a> -->
+                        <div class="dropdown-divider"></div>
+                        <a href="settings" class="dropdown-item">Account settings</a>
+                        <a href="/logout" class="dropdown-item">Log out</a>
+                      </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  <!-- </a> -->
+                </div>
+              </div>
+              <div class="d-none d-md-flex">
+                <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip"
+         data-bs-placement="bottom">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
+                </a>
+                <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip"
+         data-bs-placement="bottom">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/sun -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
+                </a>
+                <div class="nav-item dropdown d-none d-md-flex me-3">
+                  <!-- <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
+               
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
+                    <span class="badge bg-red"></span>
+                  </a> -->
+                  <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Last updates</h3>
+                      </div>
+                      <div class="list-group list-group-flush list-group-hoverable">
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col-auto"><span class="status-dot status-dot-animated bg-red d-block"></span></div>
+                            <div class="col text-truncate">
+                              <a href="#" class="text-body d-block">Example 1</a>
+                              <div class="d-block text-muted text-truncate mt-n1">
+                                Change deprecated html tags to text decoration classes (#29604)
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <a href="#" class="list-group-item-actions">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col-auto"><span class="status-dot d-block"></span></div>
+                            <div class="col text-truncate">
+                              <a href="#" class="text-body d-block">Example 2</a>
+                              <div class="d-block text-muted text-truncate mt-n1">
+                                justify-content:between ⇒ justify-content:space-between (#29734)
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <a href="#" class="list-group-item-actions show">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col-auto"><span class="status-dot d-block"></span></div>
+                            <div class="col text-truncate">
+                              <a href="#" class="text-body d-block">Example 3</a>
+                              <div class="d-block text-muted text-truncate mt-n1">
+                                Update change-version.js (#29736)
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <a href="#" class="list-group-item-actions">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col-auto"><span class="status-dot status-dot-animated bg-green d-block"></span></div>
+                            <div class="col text-truncate">
+                              <a href="#" class="text-body d-block">Example 4</a>
+                              <div class="d-block text-muted text-truncate mt-n1">
+                                Regenerate package-lock.json (#29730)
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <a href="#" class="list-group-item-actions">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="nav-item dropdown">
+                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                  <span class="avatar avatar-sm" style="background-image: url(static/avatars/000m.png)"></span>
+                  <div class="d-none d-xl-block ps-2">
+                    <div><%= data.email %></div>
+                    <div class="mt-1 small text-muted" style="text-transform: uppercase;"><%= data.role %></div>
+                  </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <a href="/viewstock" class="dropdown-item">Manage Cartons</a>
+                   <a href="/allproducts" class="dropdown-item">Manage Kilo</a>
+                                
+                  <a href="/saleshistory" class="dropdown-item">Sales History</a>
+                  <a href="/eventoverview" class="dropdown-item">Products</a>
+                  <a href="/users" class="dropdown-item">Users</a>
+                  <!-- <a href="#" class="dropdown-item">Liked</a>
+                  <a href="#" class="dropdown-item">Following</a>
+                  <a href="#" class="dropdown-item">Interests</a> -->
+                  <div class="dropdown-divider"></div>
+                  <a href="settings" class="dropdown-item">Account settings</a>
+                  <a href="/delete?tagid=<%= data._id %>" class="dropdown-item">Delete my Account</a>
+                  <a href="/logout" class="dropdown-item">Log out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+                 
+        <% }else{  %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <header class="navbar navbar-expand-md d-print-none glass" >
+            <div class="container-xl">
+              <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button> -->
+              <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                <a href=".">
+                  <img src="#" width="110" height="32" alt="" class="navbar-brand-image">
+                </a>
+              </h1>
+              <div class="navbar-nav flex-row order-md-last">
+                <div class="nav-item d-none d-md-flex me-3">
+                  <div class="btn-list">
+    
+    
+    
+                    <div class="my-2 my-md-0 flex-grow-5 flex-md-grow-5 order-first order-md-last" >
+                      <form action="" method="get" autocomplete="off" novalidate>
+                        <div class="input-icon">
+                          <span class="input-icon-addon" onclick="searchdb()">
+                       
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                          </span>
+    
+    
+                          <input type="text" value=""  class="form-control fmsc" placeholder="Search Event…" aria-label="Search in website">
+                        </div>
+                      </form>
+                    </div>
+    
+    
+    
+    
+             
+                  </div>
+    
+                  
+                </div>
+    
+    
+                <div class="d-none d-md-flex">
+    
+    
+<!--     
+                    <a href="/log-on" class="navbtnholder"  rel="noreferrer">
+                      Find events
+                      </a>
+    
+                      <a href="#" class="navbtnholderseperator"  rel="noreferrer">
+                       | 
+                         </a>
+                      <a href="/signup" class="navbtnholder"  rel="noreferrer">
+                      
+                        
+                        Create events
+                      </a>
+                      <a href="#" class="navbtnholderseperator"  rel="noreferrer">
+                        | 
+                          </a> -->
+
+
+                      <a href="/log-on" class="navbtnholder"  rel="noreferrer">
+                        Login 
+                         </a>
+       
+                         <a href="#" class="navbtnholderseperator"  rel="noreferrer">
+                          | 
+                            </a>
+                         <a href="/signup" class="navbtnholder"  rel="noreferrer">
+                         
+                           
+                            Sign Up
+                         </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                  <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip"
+           data-bs-placement="bottom">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
+                  </a>
+                  <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip"
+           data-bs-placement="bottom">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/sun -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
+                  </a>
+    
+    
+              
+    
+    
+    
+    
+                </div>
+                <div class="nav-item dropdown">
+                  <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+               
+                    <div class="d-none d-xl-block ps-2">
+                      <div>Location</div>
+                      <div class="mt-1 small text-muted">UI Designer</div>
+                    </div>
+    
+                    <span class="avatar avatar-sm">
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-baseline-density-medium" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h16" /><path d="M4 12h16" /><path d="M4 4h16" /></svg>
+                    
+                    </span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <a href="#" class="dropdown-item">Find events</a>
+                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-report">Create an event</a>
+                    
+                    <div class="dropdown-divider"></div>
+
+                    <a href="#" class="dropdown-item">Help Center</a>
+                    <!-- <a href="settings.html" class="dropdown-item">Settings</a>
+                    <a href="/logout" class="dropdown-item">Logout</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+     
+          <% } %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Libs JS -->
+    <!-- Tabler Core -->   <script>
+// Check printer type and update header status
+function updatePrinterStatus() {
+  const printerType = localStorage.getItem('printerType') || 'wireless';
+  const connectButton = document.getElementById('connectButton');
+  const statusText = document.getElementById('printerStatusText');
+  const connectionStatus = document.getElementById('connectionStatus');
+  
+  // Only update if elements exist (user is logged in)
+  if (!connectButton || !connectionStatus) return;
+  
+  if (printerType === 'wired') {
+    const printerName = localStorage.getItem('wiredPrinterName') || 'Unknown';
+    // Change icon to wired printer icon
+    connectButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-printer">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+        <path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" />
+      </svg>
+      <span id="printerStatusText">Wired: ${printerName}</span>
+    `;
+    connectButton.disabled = true; // Disable click for wired mode
+    connectionStatus.textContent = 'Wired Printer Mode';
+    connectionStatus.style.color = 'green';
+  } else {
+    // Keep original Bluetooth icon and functionality
+    connectButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bluetooth">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M7 8l10 8l-5 4l0 -16l5 4l-10 8" />
+      </svg>
+      <span id="printerStatusText">Connect</span>
+    `;
+    connectButton.disabled = false;
+    connectionStatus.textContent = ''; // Will be updated by Bluetooth connection logic
+  }
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(updatePrinterStatus, 100); // Small delay to ensure elements are loaded
+});
+
+// Listen for storage changes (when settings are updated)
+window.addEventListener('storage', updatePrinterStatus);
+
+// Also listen for manual trigger
+window.addEventListener('printerTypeChanged', updatePrinterStatus);
+
+// Override any Bluetooth status updates if in wired mode
+setInterval(function() {
+  const printerType = localStorage.getItem('printerType') || 'wireless';
+  if (printerType === 'wired') {
+    updatePrinterStatus(); // Re-apply wired status every 2 seconds
+  }
+}, 2000);
+</script>
+    <script src="js/tabler.min.js" defer></script>
+    <script src="js/demo.min.js" defer></script>
+    <script src="js/backrunner.js" ></script>
+    <script src="js/btcon.js"> </script>
+  </body> 
+</html>

@@ -1,0 +1,252 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Empty page - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <!-- CSS files -->
+    <link href="css/tabler.min.css" rel="stylesheet"/>
+    <link href="css/tabler-flags.min.css" rel="stylesheet"/>
+    <link href="css/tabler-payments.min.css" rel="stylesheet"/>
+    <link href="css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link href="css/demo.min.css" rel="stylesheet"/>
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+      	font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
+  <body >
+    <script src="js/demo-theme.min.js"></script>
+    <div class="page">
+      <!-- Navbar -->
+ 
+
+
+
+      <%- include('header') %>
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="page-wrapper">
+        <!-- Page header -->
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <h2 class="page-title">
+                  Empty page
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="container-xl">
+
+
+
+
+
+
+
+
+
+
+            <form id="form" class="form" method="post" ... data-role="<%= session.role %>"> 
+                <div class="container">
+            
+                
+            
+                  <div class="" role="document">
+                    <div class="">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Update PRODUCT</h5>
+                       <a href="/eventoverview"> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></a>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label class="form-label">Stock Name: </label>
+                          <input type="text" class="form-control" id="stocknameid" name="stockname" value="<%= docs.stockname %>" placeholder="<%= docs.productname %>" <%= session.role == "admin" ? "readonly" : "" %>>
+                          <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessage"></p>
+                        </div>
+             <% if(session.role == "admin"){ %> 
+                        <div class="mb-3">
+                          <label class="form-label">Stock Price: </label>
+                          <input readonly type="text" class="form-control" id="stockpriceid"  name="stockprice"  value="<%= docs.stockprice %>">
+                          <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessageprice"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label cldass="form-label">Stock Quantity:</label>
+                            <input type="text" class="form-control" id="stockquantityid"  ... data-oldqty="<%= docs.stockquantity %>" name="stockquantity" value="<%= docs.stockquantity %>" placeholder="<%= docs.productname %>">
+                            <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessage"></p>
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="form-label">Stock Weight: </label>
+                            <input readonly type="text" class="form-control" id="stockweightid" name="stockweight" value="<%= docs.stockweight %>" placeholder="<%= docs.productname %>">
+                            <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessage"></p>
+                          </div>
+  <% }else{  %>          <div class="mb-3">
+                          <label class="form-label">Stock Price: </label>
+                          <input  type="text" class="form-control" id="stockpriceid"  name="stockprice"  value="<%= docs.stockprice %>">
+                          <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessageprice"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Stock Quantity:</label>
+                            <input type="text" class="form-control" id="stockquantityid" name="stockquantity" value="<%= docs.stockquantity %>" placeholder="<%= docs.productname %>">
+                            <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessage"></p>
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="form-label">Stock Weight: </label>
+                            <input  type="text" class="form-control" id="stockweightid" name="stockweight" value="<%= docs.stockweight %>" placeholder="<%= docs.productname %>">
+                            <p style="color: red; margin-left: 2rem; margin-top: 1rem;" id="errorMessage"></p>
+                          </div> 
+          <% } %> 
+                                            
+      <% if(referer){ %> 
+
+
+        <span class=" d-sm-inline">
+
+                          
+
+
+          <a href="<%= referer %>" class="btn">
+             Go Back
+          </a>
+  
+                 
+        <% }else{  %> 
+
+
+        
+     
+          <% } %> 
+
+
+
+
+                   
+                      
+                        </span>
+            
+                        <button type="submit" class="btn  btn-primary ms-auto" style="float: right;">
+                       
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                          Update Stock
+                        </button>
+            
+            
+            
+            
+            
+             
+            
+            
+            
+            
+            
+                      </div>
+                     
+                      </div>
+            
+                    
+                      
+            
+            
+                    </div>
+            
+            
+            
+               
+                  </div>
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Content here -->
+          </div>
+        </div>
+        <footer class="footer footer-transparent d-print-none">
+          <div class="container-xl">
+            <div class="row text-center align-items-center flex-row-reverse">
+              <div class="col-lg-auto ms-lg-auto">
+                <ul class="list-inline list-inline-dots mb-0">
+                  <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
+                  <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
+                  <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
+                  <li class="list-inline-item">
+                    <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
+                      <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                      Sponsor
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                <ul class="list-inline list-inline-dots mb-0">
+                  <li class="list-inline-item">
+                    Copyright &copy; 2023
+                    <a href="." class="link-secondary">Tabler</a>.
+                    All rights reserved.
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="./changelog.html" class="link-secondary" rel="noopener">
+                      v1.0.0-beta19
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+
+    <script src="js/demo.min.js" defer></script>
+    <script src="js/tabler.min.js" defer></script>
+    <script src="js/stockupdatehandler.js"></script>
+  </body>
+</html>

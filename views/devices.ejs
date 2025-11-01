@@ -1,0 +1,19 @@
+<!-- views/devices.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1>Available Devices</h1>
+    <ul>
+        <% devices.forEach(device => { %>
+            <li><%= device.address %>: <%= device.advertisement.localName %></li>
+        <% }); %>
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
